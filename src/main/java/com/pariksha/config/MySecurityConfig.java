@@ -37,15 +37,15 @@ public class MySecurityConfig  {
 	 @Autowired
 	    UserDetailsServiceImpl userDetailsServiceImpl;
 	 
-//	 @Bean
-//	 public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//		 return new BCryptPasswordEncoder();
-//	 }
-	 
 	 @Bean
-	 public PasswordEncoder bCryptPasswordEncoder() {
-		 return NoOpPasswordEncoder.getInstance();
+	 public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		 return new BCryptPasswordEncoder();
 	 }
+	 
+//	 @Bean
+//	 public PasswordEncoder bCryptPasswordEncoder() {
+//		 return NoOpPasswordEncoder.getInstance();
+//	 }
 	 
 	 @Bean
 	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

@@ -10,6 +10,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Base64;
@@ -31,7 +32,7 @@ public class JwtUtils {
      
      SecretKey testKey = Jwts.SIG.HS256.key().build();
      
-//     String secretString = Encoders.BASE64.encode(testKey.getEncoded());
+     String secretString = Encoders.BASE64.encode(testKey.getEncoded());
 
 //     byte[] content = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
 
@@ -50,7 +51,7 @@ public class JwtUtils {
 	    private Claims extractAllClaims(String token) {
 //	        return Jwts.parser().verifyWith(testKey).build().parseSignedClaims(token).getPayload();
 	    	
-	    	return Jwts.parser().setSigningKey(testKey).build().parseClaimsJws(token).getBody();
+	    	return Jwts.parser().setSigningKey(secretString.getBytes()).build().parseClaimsJws(token.replace("\"","")).getBody();
 	    }
 
 	    private Boolean isTokenExpired(String token) {
@@ -67,7 +68,7 @@ public class JwtUtils {
 	    	
 	        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
 	                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-	                .signWith(SignatureAlgorithm.HS256, testKey).compact();
+	                .signWith(SignatureAlgorithm.HS256, secretString.getBytes()).compact();
 	    	
 //	    	return Jwts.builder()
 //	    			.subject(subject)

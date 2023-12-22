@@ -20,6 +20,7 @@ import com.pariksha.config.JwtUtils;
 import com.pariksha.entity.JwtRequest;
 import com.pariksha.entity.JwtResponse;
 import com.pariksha.entity.User;
+import com.pariksha.helper.UserNotFoundException;
 import com.pariksha.service.impl.UserDetailsServiceImpl;
 
 @RestController
@@ -42,7 +43,7 @@ public class AuthenticateController {
 	{
 		try {
 			authenticate(jwtRequest.getUsername(), jwtRequest.getPassword());
-		}catch(UsernameNotFoundException e) {
+		}catch(UserNotFoundException e) {
 			e.printStackTrace();
 			throw new Exception("User not found");
 		}

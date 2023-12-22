@@ -9,7 +9,7 @@ public interface UserService {
 	
 	//create user
 	
-	public User createUser(User user, Set<UserRole> userRoles);
+	public User createUser(User user, Set<UserRole> userRoles) throws Exception;
 	
 	//get user by username
 	
