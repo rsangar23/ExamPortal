@@ -1,5 +1,7 @@
 package com.pariksha.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pariksha.entity.exam.Category;
 import com.pariksha.entity.exam.Quiz;
 import com.pariksha.service.QuizService;
 
@@ -52,5 +55,26 @@ public class QuizController {
 	public void deleteQuiz(@PathVariable Long qid) {
 		this.quizService.deleteQuiz(qid);
 	}
+	
+	@GetMapping("/category/{cid}")
+	public List<Quiz> getQuizzesOfCategory(@PathVariable Long cid ){
+		Category category = new Category();
+		category.setCid(cid);
+		return this.quizService.getQuizzesOfCategory(category);
+	}
+	
+	//get active quizzes
+	@GetMapping("/active")
+	public List<Quiz> getActiveQuizzes(){
+		return this.quizService.getActiveQuizzes();
+	}
+	
+	//get active quizzes of category
+		@GetMapping("/category/active/{cid}")
+		public List<Quiz> getActiveQuizzes(@PathVariable Long cid){
+			Category category = new Category();
+			category.setCid(cid);
+			return this.quizService.getActiveQuizzesOfCategory(category);
+		}
 
 }

@@ -54,4 +54,10 @@ public class QuestionServiceImpl implements QuestionService {
 		
 	}
 
+	@Override
+	public Question get(Long id) {
+		
+		return this.questionRepository.getOne(id);
+	}
+
 }
